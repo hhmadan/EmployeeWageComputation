@@ -1,4 +1,4 @@
-#UC7_CalculateWageUsingFunction
+#UC8_StoreDailyWageAndTotalWage
 
 is_PartTime=1;
 is_FullTime=2;
@@ -23,10 +23,14 @@ function getWorkingHours() {
  echo $empHrs;
 }
 
-while [[ $totalempHrs -lt $MaxHrs_inMonth && $totalWorkingDays -lt $numWorkingDays ]]
+while [[ $totalempHrs -lt $MaxHrs_inMonth &&
+         $totalWorkingDays -lt $numWorkingDays ]]
 do
-      ((totalWorkingDays++))
-      empHrs="$( getWorkingHours $((RANDOM%3)) )"
-      totalWorkHrs=$(($totalempHrs+$empHrs))
+      	((totalWorkingDays++))
+      	empHrs="$( getWorkingHours $((RANDOM%3)) )"
+      	totalempHrs=$(($totalempHrs+$empHrs))
+	dailyWage[$totalWorkingDays]=$(($empHrs*$empRatePerHr))
 done
-echo "Total Working Hours: $totalWorkHrs"
+totalSalary=$(($totalempHrs*$empRatePerHr))
+echo "Daily Wages: ${dailyWage[@]}"
+echo "Total Salary is: $totalSalary"
