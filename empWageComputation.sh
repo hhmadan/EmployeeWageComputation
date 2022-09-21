@@ -1,18 +1,22 @@
+#UC5_CalculatingWagesForaMonth
 isPartTime=1;
 isFullTime=2;
-empCheck=$((RANDOM%3));
+totalSalary=0;
 empRatePerHr=20;
+numWokingDays=20;
 
-case $empCheck in
-                $isFullTime)
-                        empHrs=8
-                        ;;
-                $isPartTime)
-                        empHrs=4
-                        ;;
-                *)
-                	empHrs=0
-                        ;;
+for(( day=1; day<=numWokingDays; day++ ))
+do
+randomCheck=$((RANDOM%3));
+
+case $randomCheck in $isFullTime)
+			empHrs=8;;
+		     $isPartTime)
+			empHrs=4;;
+		     *)
+			empHrs=0;;
 esac
-salary=$(($empRatePerHr*$empHrs))
-echo $salary
+salary=$(($empHrs*$empRatePerHr))
+totalSalary=$(($totalSalary+$salary))
+done
+echo "Employee has earned $ $totalSalary in a month";
