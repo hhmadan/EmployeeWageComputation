@@ -1,22 +1,31 @@
-#UC5_CalculatingWagesForaMonth
-isPartTime=1;
-isFullTime=2;
-totalSalary=0;
+#UC6_CalculatingWagesForaMonthUsingWhileLoop
+is_PartTime=1;
+is_FullTime=2;
+MaxHrs_inMonth=100;
 empRatePerHr=20;
-numWokingDays=20;
+numWorkingDays=20;
+totalEmpHr=0;
+totalWorkingDays=0;
 
-for(( day=1; day<=numWokingDays; day++ ))
+
+while [[ $totalEmpHr -lt $MaxHrs_inMonth && $totalWorkingDays -lt $numWorkingDays ]]
 do
-randomCheck=$((RANDOM%3));
-
-case $randomCheck in $isFullTime)
-			empHrs=8;;
-		     $isPartTime)
-			empHrs=4;;
-		     *)
-			empHrs=0;;
-esac
-salary=$(($empHrs*$empRatePerHr))
-totalSalary=$(($totalSalary+$salary))
+	((totalWorkingDays++))
+	empCheck=$((RANDOM%3));
+	
+	case $empCheck in
+		$is_FullTime)
+			empHrs=8
+          		;;
+		$is_PartTime)
+         		empHrs=4
+          		;;
+       		*)
+         		empHrs=0
+          		;;
+   	esac
+totalEmpHr=$(($totalEmpHr + $empHrs)) 
 done
-echo "Employee has earned $ $totalSalary in a month";
+
+totalSalary=$(($totalEmpHr+$empRatePerHr));
+echo "Total Salary is: $totalSalary"
